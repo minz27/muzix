@@ -14,15 +14,15 @@ public class Track {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int trackId;
     @JsonProperty("name")
-    private String trackName;
+    private String name;
     @JsonProperty("artist")
-    private String trackArtist;
+    private String artist;
     private String trackComments;
 
     public Track(int trackId, String trackName, String trackArtist, String trackComments) {
         this.trackId = trackId;
-        this.trackName = trackName;
-        this.trackArtist = trackArtist;
+        this.name = trackName;
+        this.artist = trackArtist;
         this.trackComments = trackComments;
     }
 
@@ -37,12 +37,20 @@ public class Track {
         this.trackId = trackId;
     }
 
-    public String getTrackName() {
-        return trackName;
+    public String getName() {
+        return name;
     }
 
-    public void setTrackName(String trackName) {
-        this.trackName = trackName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
     public String getTrackComments() {
@@ -53,20 +61,12 @@ public class Track {
         this.trackComments = trackComments;
     }
 
-    public String getTrackArtist() {
-        return trackArtist;
-    }
-
-    public void setTrackArtist(String trackArtist) {
-        this.trackArtist = trackArtist;
-    }
-
     @Override
     public String toString() {
         return "Track{" +
                 "trackId=" + trackId +
-                ", trackName='" + trackName + '\'' +
-                ", trackArtist='" + trackArtist + '\'' +
+                ", name='" + name + '\'' +
+                ", artist='" + artist + '\'' +
                 ", trackComments='" + trackComments + '\'' +
                 '}';
     }

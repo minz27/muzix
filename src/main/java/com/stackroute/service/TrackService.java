@@ -13,7 +13,7 @@ public interface TrackService {
 
     public Track saveTrack(Track track);
 
-    public Track deleteTrack(int trackId);
+    public Track deleteTrackById(int trackId);
 
     public Track updateTrack(Track track);
 }

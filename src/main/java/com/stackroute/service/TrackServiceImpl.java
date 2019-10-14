@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrackServiceImpl implements TrackService{
@@ -45,21 +46,36 @@ public class TrackServiceImpl implements TrackService{
 
     @Override
     public List<Track> getAllTracks() {
-        return null;
+        return trackRepository.findAll();
     }
 
     @Override
     public Track saveTrack(Track track) {
-        return null;
+        Track savedTrack = trackRepository.save(track);
+        return savedTrack;
     }
 
     @Override
-    public Track deleteTrack(int trackId) {
-        return null;
+    public Track deleteTrackById(int trackId){
+        Optional<Track > track = trackRepository.findById(trackId);
+        if (track.isPresent()){
+            trackRepository.deleteById(trackId);
+            return track.get();
+        }else{
+            return null;
+        }
     }
 
     @Override
     public Track updateTrack(Track track) {
-        return null;
+        Optional<Track> savedTrack = trackRepository.findById(track.getTrackId());
+        if(savedTrack.isPresent()){
+            Track updatedTrack = savedTrack.get();
+            updatedTrack.setTrackComments(track.getTrackComments());
+            trackRepository.save(updatedTrack);
+            return updatedTrack;
+        }else{
+            return null;
+        }
     }
 }
