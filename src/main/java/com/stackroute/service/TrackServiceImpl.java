@@ -101,6 +101,6 @@ public class TrackServiceImpl implements TrackService{
 
     @Override
     public List<Track> findTrackByName(String trackName) throws TrackNotFoundException {
-        return trackRepository.findAll();
+        return trackRepository.findTrackByName(trackName);
     }
 }
