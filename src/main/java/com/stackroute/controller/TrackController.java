@@ -1,6 +1,7 @@
 package com.stackroute.controller;
 
 import com.stackroute.domain.Track;
+import com.stackroute.exception.TrackAlreadyExistsException;
 import com.stackroute.exception.TrackNotFoundException;
 import com.stackroute.service.TrackService;
 import io.swagger.annotations.Api;
@@ -40,7 +41,7 @@ public class TrackController {
         try{
             trackService.saveTrack(track);
             responseEntity = new ResponseEntity("Successfully created", HttpStatus.CREATED);
-        }catch (Exception e){
+        }catch (TrackAlreadyExistsException e){
             responseEntity = new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
         }
         return responseEntity;
