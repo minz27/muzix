@@ -4,11 +4,13 @@ import com.stackroute.domain.Track;
 import com.stackroute.exception.TrackAlreadyExistsException;
 import com.stackroute.exception.TrackNotFoundException;
 import org.json.simple.parser.ParseException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Profile("dummy")
 public class TrackDummyServiceImpl implements TrackService {
     @Override
     public List<Track> searchTrack(String trackName) throws ParseException {
