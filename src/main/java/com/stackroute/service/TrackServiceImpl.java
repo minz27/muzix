@@ -9,16 +9,29 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+@Primary
 @Service
+@PropertySource("classpath:application.properties")
 public class TrackServiceImpl implements TrackService{
+    @Value("${api.key}")
+    private String apiKey;
+    @Value("${lastfm.suffix}")
+    private String urlSuffix;
+
+    @Autowired
+    private Environment environment;
+
     private TrackRepository trackRepository;
     @Autowired
     public void setTrackRepository(TrackRepository trackRepository) {
@@ -27,7 +40,7 @@ public class TrackServiceImpl implements TrackService{
 
     @Override
     public List<Track> searchTrack(String trackName) throws ParseException {
-        final String uri = "http://ws.audioscrobbler.com/2.0/?method=track.search&track=" + trackName + "&api_key=f720237c5a996fe681f78ec412b19e97&format=json&limit=5";
+        final String uri=environment.getProperty("lastfm.prefix") + trackName + "&api_key=" + apiKey + urlSuffix;
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(uri, String.class);
         //Process JSON
@@ -55,7 +68,7 @@ public class TrackServiceImpl implements TrackService{
         try{
             Track savedTrack = trackRepository.save(track);
             return savedTrack;
-        }catch (Exception e){
+        }catch(Exception e){
             throw new TrackAlreadyExistsException("Track already exists");
         }
     }
