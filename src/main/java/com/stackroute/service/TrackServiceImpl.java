@@ -1,6 +1,7 @@
 package com.stackroute.service;
 
 import com.stackroute.domain.Track;
+import com.stackroute.exception.TrackNotFoundException;
 import com.stackroute.repository.TrackRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -56,13 +57,13 @@ public class TrackServiceImpl implements TrackService{
     }
 
     @Override
-    public Track deleteTrackById(int trackId){
+    public Track deleteTrackById(int trackId) throws TrackNotFoundException{
         Optional<Track > track = trackRepository.findById(trackId);
         if (track.isPresent()){
             trackRepository.deleteById(trackId);
             return track.get();
         }else{
-            return null;
+            throw new TrackNotFoundException("Cannot find track");
         }
     }
 

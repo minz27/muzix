@@ -1,6 +1,7 @@
 package com.stackroute.service;
 
 import com.stackroute.domain.Track;
+import com.stackroute.exception.TrackNotFoundException;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ public interface TrackService {
 
     public Track saveTrack(Track track);
 
-    public Track deleteTrackById(int trackId);
+    public Track deleteTrackById(int trackId) throws TrackNotFoundException;
 
     public Track updateTrack(Track track);
 }
