@@ -70,4 +70,14 @@ public class TrackController {
         }
         return responseEntity;
     }
+
+    @GetMapping("findTrack")
+    public ResponseEntity<?> findTrackByName(@RequestParam("trackName") String trackName){
+        try{
+            responseEntity = new ResponseEntity(trackService.findTrackByName(trackName), HttpStatus.OK);
+        }catch (TrackNotFoundException e){
+            responseEntity = new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
+        }
+        return responseEntity;
+    }
 }
