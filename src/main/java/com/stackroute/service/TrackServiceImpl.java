@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @Primary
 @Service
-@Profile("dev")
+@Profile({"dev", "prod"})
 @PropertySource("classpath:application.properties")
 public class TrackServiceImpl implements TrackService{
     @Value("${api.key}")
